@@ -1,0 +1,12 @@
+mysql:
+  username: root
+  password: 123456
+  schema: ms_customer_wallet
+  url: 127.0.0.1:3306
+
+server:
+  port: 8081
+  undertow:
+    threads:
+      worker: 10
+      io: 2

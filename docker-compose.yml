@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  mysql:
+    container_name: ms_customerwallet_mysql
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=ms_customer_wallet
+    security_opt:
+      - seccomp:unconfined
+    ports:
+      - 3305:3306
+    volumes:
+      - .docker/mysql:/var/lib/mysql:rw

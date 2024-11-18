@@ -1,0 +1,5 @@
+rootProject.name = 'ms-customer-wallet'
+include 'domain'
+include 'application'
+include 'infrastructure'
+
