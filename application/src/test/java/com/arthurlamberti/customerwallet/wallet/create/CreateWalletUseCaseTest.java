@@ -47,7 +47,7 @@ public class CreateWalletUseCaseTest extends UseCaseTest {
     public void givenAnInvalidCommand_whenCallsCreateWallet_shouldReturnAnError() {
         final var aCommand = CreateWalletCommand.with(Fixture.negativeNumber(), Fixture.uuid());
         final var expectedErrorCount = 1;
-        final var expectedErrorMessage = "'balance' should be 0";
+        final var expectedErrorMessage = "'balance' should be greater than or equals 0";
 
         final var actualError = assertThrows(NotificationException.class, () -> useCase.execute(aCommand));
         assertNotNull(actualError);

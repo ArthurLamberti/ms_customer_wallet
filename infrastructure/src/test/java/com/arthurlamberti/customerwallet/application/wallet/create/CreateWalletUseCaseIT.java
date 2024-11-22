@@ -51,23 +51,7 @@ public class CreateWalletUseCaseIT {
         final var expectedBalance = Fixture.negativeNumber();
         final var expectedCustomerId = Fixture.uuid();
         final var expectedErrorCount = 1;
-        final var expectedErrorMessage = "'balance' should be 0";
-
-        assertEquals(0, walletRepository.count());
-
-        final var aCommand = CreateWalletCommand.with(expectedBalance, expectedCustomerId);
-        final var actualException = assertThrows(NotificationException.class, () -> useCase.execute(aCommand));
-        assertNotNull(actualException);
-        assertEquals(expectedErrorCount, actualException.getErrors().size());
-        assertEquals(expectedErrorMessage, actualException.getFirstError().get().message());
-    }
-
-    @Test
-    public void givenAnInvalidPositiveBalance_whenCallsCreateWallet_thenShouldReturnAnException() {
-        final var expectedBalance = Fixture.positiveNumber();
-        final var expectedCustomerId = Fixture.uuid();
-        final var expectedErrorCount = 1;
-        final var expectedErrorMessage = "'balance' should be 0";
+        final var expectedErrorMessage = "'balance' should be greater than or equals 0";
 
         assertEquals(0, walletRepository.count());
 

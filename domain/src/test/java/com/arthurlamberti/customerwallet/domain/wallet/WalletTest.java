@@ -25,22 +25,7 @@ public class WalletTest {
         final var expectedBalance = Fixture.negativeNumber();
         final var expectedClientId = Fixture.uuid();
         final var expectedErrorCount = 1;
-        final var expectedErrorMessage = "'balance' should be 0";
-
-        final var actualError = assertThrows(NotificationException.class,
-                () -> Wallet.newWallet(expectedBalance, expectedClientId));
-
-        assertNotNull(actualError);
-        assertEquals(expectedErrorCount, actualError.getErrors().size());
-        assertEquals(expectedErrorMessage, actualError.getFirstError().get().message());
-    }
-
-    @Test
-    public void givenAnInvalidPositiveBalance_whenCallsNewWallet_shouldReturnAnError() {
-        final var expectedBalance = Fixture.positiveNumber();
-        final var expectedClientId = Fixture.uuid();
-        final var expectedErrorCount = 1;
-        final var expectedErrorMessage = "'balance' should be 0";
+        final var expectedErrorMessage = "'balance' should be greater than or equals 0";
 
         final var actualError = assertThrows(NotificationException.class,
                 () -> Wallet.newWallet(expectedBalance, expectedClientId));

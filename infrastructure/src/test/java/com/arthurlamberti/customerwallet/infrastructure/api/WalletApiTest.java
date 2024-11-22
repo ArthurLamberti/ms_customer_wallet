@@ -34,7 +34,7 @@ public class WalletApiTest {
     @MockBean
     private CreateWalletUseCase createWalletUseCase;
 
-    @Test
+//    @Test
     @Disabled
     public void givenAValidCommand_whenCallsCreateWallet_shouldReturnWalletId() throws Exception {
         final var expectedBalance = 0.0;
@@ -54,7 +54,7 @@ public class WalletApiTest {
                 .andExpect(jsonPath("$.id", equalTo(expectedId)));
     }
 
-    @Test
+//    @Test
     @Disabled
     public void givenInvValidCommand_whenCallsCreateWallet_shouldReturnAnError() throws Exception {
         final var expectedBalance = 1.0;
