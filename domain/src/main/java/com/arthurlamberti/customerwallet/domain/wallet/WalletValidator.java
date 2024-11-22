@@ -23,8 +23,8 @@ public class WalletValidator extends Validator {
 
     public void checkBalance() {
         final var balance = wallet.getBalance();
-        if (balance != 0) {
-            this.validationHandler().append(new Error("'balance' should be 0"));
+        if (balance < 0) {
+            this.validationHandler().append(new Error("'balance' should greater than or equals 0"));
         }
     }
 

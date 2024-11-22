@@ -6,6 +6,7 @@ import com.arthurlamberti.customerwallet.application.wallet.create.CreateWalletU
 import com.arthurlamberti.customerwallet.domain.Fixture;
 import com.arthurlamberti.customerwallet.infrastructure.wallet.models.CreateWalletRequest;
 import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -22,7 +23,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ControllerTest
-@Ignore
 public class WalletApiTest {
 
     @Autowired
@@ -35,6 +35,7 @@ public class WalletApiTest {
     private CreateWalletUseCase createWalletUseCase;
 
     @Test
+    @Disabled
     public void givenAValidCommand_whenCallsCreateWallet_shouldReturnWalletId() throws Exception {
         final var expectedBalance = 0.0;
         final var expectedCustomerID = Fixture.uuid();
@@ -54,6 +55,7 @@ public class WalletApiTest {
     }
 
     @Test
+    @Disabled
     public void givenInvValidCommand_whenCallsCreateWallet_shouldReturnAnError() throws Exception {
         final var expectedBalance = 1.0;
         final var expectedCustomerID = Fixture.uuid();

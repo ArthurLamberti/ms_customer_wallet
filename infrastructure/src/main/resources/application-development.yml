@@ -2,7 +2,7 @@ mysql:
   username: root
   password: 123456
   schema: ms_customer_wallet
-  url: 127.0.0.1:3306
+  url: 127.0.0.1:3305
 
 server:
   port: 8081

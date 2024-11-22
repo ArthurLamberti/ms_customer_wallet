@@ -33,7 +33,7 @@ public class WalletController implements WalletApi {
     }
 
     @Override
-    public ResponseEntity<?> createCustomer(CreateWalletRequest input) {
+    public ResponseEntity<?> createWallet(CreateWalletRequest input) {
         final var aCommand = CreateWalletCommand.with(input.balance(), input.customerId());
 
         final var output = this.createWalletUseCase.execute(aCommand);

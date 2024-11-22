@@ -1,6 +1,19 @@
 version: '3.7'
 
 services:
+  app:
+    container_name: ms_customer_wallet_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql
+    networks:
+      - ms_customerwallet_network
+
   mysql:
     container_name: ms_customerwallet_mysql
     image: mysql:latest
@@ -13,3 +26,7 @@ services:
       - 3305:3306
     volumes:
       - .docker/mysql:/var/lib/mysql:rw
+
+networks:
+  ms_customerwallet_network:
+    external: true

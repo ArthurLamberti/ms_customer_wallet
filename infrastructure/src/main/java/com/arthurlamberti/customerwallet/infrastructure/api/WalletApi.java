@@ -27,7 +27,7 @@ public interface WalletApi {
             @ApiResponse(responseCode = "422", description = "A validation error was throw"),
             @ApiResponse(responseCode = "500", description = "Internal error server"),
     })
-    ResponseEntity<?> createCustomer(@RequestBody CreateWalletRequest input);
+    ResponseEntity<?> createWallet(@RequestBody CreateWalletRequest input);
 
     @GetMapping(
             produces = MediaType.APPLICATION_JSON_VALUE
