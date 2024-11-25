@@ -1,12 +1,13 @@
 package com.arthurlamberti.customerwallet.domain.wallet;
 
 import com.arthurlamberti.customerwallet.domain.Fixture;
+import com.arthurlamberti.customerwallet.domain.UnitTest;
 import com.arthurlamberti.customerwallet.domain.exceptions.NotificationException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class WalletTest {
+public class WalletTest extends UnitTest {
 
     @Test
     public void givenAValidWallet_whenCallNewWallet_thenShouldReturnIt() {

@@ -35,3 +35,15 @@ task unitTests(type: Test, group: 'verification') {
         includeTags("unitTest")
     }
 }
+
+task controllerTests(type: Test, group: 'verification') {
+    useJUnitPlatform {
+        includeTags("controllerTest")
+    }
+}
+
+task integrationTests(type: Test, group: 'verification') {
+    useJUnitPlatform {
+        includeTags("integrationTest")
+    }
+}

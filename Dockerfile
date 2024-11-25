@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17.0.5_8-jre-alpine
+FROM openjdk:17-alpine
 
 COPY build/libs/*.jar /opt/app/application.jar
 

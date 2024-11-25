@@ -6,6 +6,7 @@ import com.arthurlamberti.customerwallet.domain.wallet.Wallet;
 import com.arthurlamberti.customerwallet.domain.wallet.WalletGateway;
 import com.arthurlamberti.customerwallet.infrastructure.wallet.persistence.WalletJpaEntity;
 import com.arthurlamberti.customerwallet.infrastructure.wallet.persistence.WalletRepository;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
