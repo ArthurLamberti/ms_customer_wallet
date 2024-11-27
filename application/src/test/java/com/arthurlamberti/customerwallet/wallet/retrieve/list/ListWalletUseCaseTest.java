@@ -15,7 +15,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
 
 public class ListWalletUseCaseTest extends UseCaseTest {
 
@@ -51,5 +52,13 @@ public class ListWalletUseCaseTest extends UseCaseTest {
         final var actualOutput = useCase.execute();
         assertNotNull(actualOutput);
         assertTrue(actualOutput.isEmpty());
+    }
+
+    @Test
+    public void givenGatewayError_whenCallsListWallet_shouldReturnAnError() {
+        doThrow(new IllegalStateException("Gateway error")).when(walletGateway).findAll();
+
+        assertThrows(IllegalStateException.class, () -> useCase.execute());
+        verify(walletGateway, times(1)).findAll();
     }
 }

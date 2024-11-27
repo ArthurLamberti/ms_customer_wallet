@@ -1,6 +1,7 @@
 package com.arthurlamberti.customerwallet.wallet.retrieve.get;
 
 import com.arthurlamberti.customerwallet.UseCaseTest;
+import com.arthurlamberti.customerwallet.application.wallet.create.CreateWalletCommand;
 import com.arthurlamberti.customerwallet.application.wallet.retrieve.get.DefaultGetWalletUseCase;
 import com.arthurlamberti.customerwallet.domain.Fixture;
 import com.arthurlamberti.customerwallet.domain.exceptions.NotFoundException;
@@ -14,7 +15,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
 
 public class GetWalletUseCaseTest extends UseCaseTest {
 
@@ -45,5 +47,13 @@ public class GetWalletUseCaseTest extends UseCaseTest {
         when(walletGateway.findByCustomerId(any())).thenReturn(Optional.empty());
         final var actualException = assertThrows(NotFoundException.class, () -> useCase.execute(anId));
         assertEquals(expectedErrorMessage, actualException.getFirstError().get().message());
+    }
+
+    @Test
+    public void givenGatewayError_whenCallsCreateWallet_shouldReturnAnError() {
+        doThrow(new IllegalStateException("Gateway error")).when(walletGateway).findByCustomerId(any());
+
+        assertThrows(IllegalStateException.class, () -> useCase.execute(Fixture.uuid()));
+        verify(walletGateway, times(1)).findByCustomerId(any());
     }
 }

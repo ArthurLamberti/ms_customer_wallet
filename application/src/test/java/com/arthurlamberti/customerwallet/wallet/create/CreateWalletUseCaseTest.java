@@ -53,5 +53,44 @@ public class CreateWalletUseCaseTest extends UseCaseTest {
         assertNotNull(actualError);
         assertEquals(expectedErrorCount, actualError.getErrors().size());
         assertEquals(expectedErrorMessage, actualError.getFirstError().get().message());
+        verify(walletGateway, never()).create(any());
+    }
+
+    @Test
+    public void givenAnInvalidNullCustomerId_whenCallsCreateWallet_shouldReturnAnError() {
+        final var aCommand = CreateWalletCommand.with(Fixture.positiveNumber(), null);
+        final var expectedErrorCount = 1;
+        final var expectedErrorMessage = "'customerId' should not be null";
+
+        final var actualError = assertThrows(NotificationException.class, () -> useCase.execute(aCommand));
+        assertNotNull(actualError);
+        assertEquals(expectedErrorCount, actualError.getErrors().size());
+        assertEquals(expectedErrorMessage, actualError.getFirstError().get().message());
+        verify(walletGateway, never()).create(any());
+    }
+
+
+    @Test
+    public void givenAnInvalidEmptyCustomerId_whenCallsCreateWallet_shouldReturnAnError() {
+        final var aCommand = CreateWalletCommand.with(Fixture.positiveNumber(), " ");
+        final var expectedErrorCount = 1;
+        final var expectedErrorMessage = "'customerId' should not be empty";
+
+        final var actualError = assertThrows(NotificationException.class, () -> useCase.execute(aCommand));
+        assertNotNull(actualError);
+        assertEquals(expectedErrorCount, actualError.getErrors().size());
+        assertEquals(expectedErrorMessage, actualError.getFirstError().get().message());
+        verify(walletGateway, never()).create(any());
+    }
+
+    @Test
+    public void givenGatewayError_whenCallsCreateWallet_shouldReturnAnError() {
+        final var expectedWallet = Fixture.WalletFixture.validWallet();
+        final var aCommand = CreateWalletCommand.with(expectedWallet.getBalance(), expectedWallet.getCustomerId());
+
+        doThrow(new IllegalStateException("Gateway error")).when(walletGateway).create(any());
+
+        assertThrows(IllegalStateException.class, () -> useCase.execute(aCommand));
+        verify(walletGateway, times(1)).create(any());
     }
 }

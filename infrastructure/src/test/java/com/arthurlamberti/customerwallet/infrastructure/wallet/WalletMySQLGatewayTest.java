@@ -60,8 +60,19 @@ public class WalletMySQLGatewayTest {
         walletRepository.saveAllAndFlush(walletJpaList);
         assertEquals(3, walletRepository.count());
 
-        final var actualResult = walletRepository.findAll();
+        final var actualResult = walletGateway.findAll();
         actualResult.forEach(res -> {
+            var exist = walletList.stream()
+                    .filter(w -> w.getId().getValue().equals(res.getId().getValue()))
+                    .toList()
+                    .get(0);
+            assertEquals(res.getId().getValue(), exist.getId().getValue());
+            assertEquals(res.getBalance(), exist.getBalance());
+            assertEquals(res.getCustomerId(), exist.getCustomerId());
+        });
+
+        final var persistedData = walletRepository.findAll();
+        persistedData.forEach(res -> {
             var exist = walletJpaList.stream()
                     .filter(w -> w.getId().equals(res.getId()))
                     .toList()
@@ -86,12 +97,17 @@ public class WalletMySQLGatewayTest {
         assertEquals(0, walletRepository.count());
         walletRepository.saveAllAndFlush(walletJpaList);
         assertEquals(3, walletRepository.count());
-
-        final var actualResult = walletRepository.findByCustomerId(walletList.get(0).getCustomerId()).get();
         final var wallet0 = walletJpaList.get(0);
-        assertEquals(actualResult.getId(), wallet0.getId());
+
+        final var actualResult = walletGateway.findByCustomerId(walletJpaList.get(0).getCustomerId()).get();
+        assertEquals(actualResult.getId().getValue(), wallet0.getId());
         assertEquals(actualResult.getCustomerId(), wallet0.getCustomerId());
         assertEquals(actualResult.getBalance(), wallet0.getBalance());
+
+        final var persistedWallet = walletRepository.findByCustomerId(walletList.get(0).getCustomerId()).get();
+        assertEquals(persistedWallet.getId(), wallet0.getId());
+        assertEquals(persistedWallet.getCustomerId(), wallet0.getCustomerId());
+        assertEquals(persistedWallet.getBalance(), wallet0.getBalance());
     }
 
 }
